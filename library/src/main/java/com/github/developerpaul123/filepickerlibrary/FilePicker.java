@@ -40,6 +40,7 @@ import com.github.developerpaul123.filepickerlibrary.enums.Scope;
 import com.github.developerpaul123.filepickerlibrary.enums.ThemeType;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * Created by Paul on 10/8/2015.
