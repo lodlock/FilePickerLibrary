@@ -465,15 +465,51 @@ public class FilePickerActivity extends ListActivity implements NameFileDialogIn
                         new UpdateFilesTask(FilePickerActivity.this).execute(curDirectory);
                     } else {
                         if (!TextUtils.isEmpty(mimeType)) {
-                            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-                            String requiredExtension = "." + mimeTypeMap.getExtensionFromMimeType(mimeType);
-                            if (requiredExtension.equalsIgnoreCase(fileExt(currentFile.toString()))) {
-                                data = new Intent();
-                                data.putExtra(FILE_EXTRA_DATA_PATH, currentFile.getAbsolutePath());
-                                setResult(RESULT_OK, data);
-                                finish();
+                            if (mimeType.equals(MimeType.AUDIO)) {
+                                String requiredAudioExtensions[] = new String[] {
+                                        ".m4a",
+                                        ".mp4",
+                                        ".mp3",
+                                        ".mpeg4",
+                                        ".wav",
+                                        ".flac",
+                                        ".ogg",
+                                        ".mid",
+                                        ".midi",
+                                        ".aac",
+                                        ".3gp",
+                                        ".xmf",
+                                        ".mxmf",
+                                        ".rtttl",
+                                        ".rtx",
+                                        ".ota",
+                                        ".imy",
+                                        ".mkv"
+                                };
+                                try {
+                                    if (currentFile != null && Arrays.asList(requiredAudioExtensions).contains(fileExt(currentFile.toString()).toLowerCase())) {
+                                        data = new Intent();
+                                        data.putExtra(FILE_EXTRA_DATA_PATH, currentFile.getAbsolutePath());
+                                        setResult(RESULT_OK, data);
+                                        finish();
+                                    } else {
+                                        Snackbar.make(getWindow().getDecorView(), "Please select an audio file.", Snackbar.LENGTH_LONG).show();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Snackbar.make(getWindow().getDecorView(), "Error Please select an audio file.", Snackbar.LENGTH_LONG).show();
+                                }
                             } else {
-                                Snackbar.make(getWindow().getDecorView(), String.format(getString(R.string.file_picker_snackbar_select_file_ext_message), requiredExtension), Snackbar.LENGTH_SHORT).show();
+                                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+                                String requiredExtension = "." + mimeTypeMap.getExtensionFromMimeType(mimeType);
+                                if (requiredExtension.equalsIgnoreCase(fileExt(currentFile.toString()))) {
+                                    data = new Intent();
+                                    data.putExtra(FILE_EXTRA_DATA_PATH, currentFile.getAbsolutePath());
+                                    setResult(RESULT_OK, data);
+                                    finish();
+                                } else {
+                                    Snackbar.make(getWindow().getDecorView(), String.format(getString(R.string.file_picker_snackbar_select_file_ext_message), requiredExtension), Snackbar.LENGTH_SHORT).show();
+                                }
                             }
                         } else {
                             data = new Intent();
