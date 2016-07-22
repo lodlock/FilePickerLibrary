@@ -23,7 +23,7 @@ public enum MimeType {
     JPEG("image/jpeg"), PNG("image/png"), XML("application/xml"),
     XLS("application/vnd.ms-excel"), XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
     DOC("application/msword"), DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-    HTML("text/html"), TXT("text/plain"), PDF("application/pdf");
+    HTML("text/html"), TXT("text/plain"), PDF("application/pdf"), AUDIO("audio/*");
 
     private final String mMimeType;
 
